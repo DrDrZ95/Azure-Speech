@@ -15,7 +15,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
 
     using Microsoft.CognitiveServices.Speech;
     using Microsoft.CognitiveServices.Speech.Audio;
-
+    using speechtotextwpf;
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -76,16 +76,16 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         private TaskCompletionSource<int> stopBaseRecognitionTaskCompletionSource;
 
         #endregion
-        
+
+        public MSBot msbot;
+
         public MainWindow()
         {
             this.InitializeComponent();
             this.Initialize();
+            msbot = new MSBot();
         }
 
-        #region 
-
-        #endregion
 
         /// <summary>
         /// 初始化一个新的语音会话。
@@ -292,8 +292,8 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
             if (!string.IsNullOrEmpty(e.Result.Text))
             {
                 this.WriteLine(log, e.Result.Text);
-                
-                this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n" + e.Result.Text + "\n\n -- 机器人\n\n");
+                var result = msbot.TalkMessage(e.Result.Text).Result;
+                this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n" + e.Result.Text + "\n\n -- 机器人\n\n" + result);
             }
             else
             {
