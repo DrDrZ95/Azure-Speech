@@ -1,0 +1,115 @@
+﻿<Window x:Class="MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample.MainWindow"
+        x:Name="mainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Microsoft Azure 语音识别系统" Margin="5,5,5,5" MinWidth="800" FontSize="16">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="b2v" />
+    </Window.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" >
+            <Label HorizontalAlignment="Left" Width="326">微软 Azure 认知服务 - 语音识别</Label>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="400"/>
+                <ColumnDefinition x:Name="column2" Width="auto" MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Column="0" Background="Beige"  Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" MinHeight="200"></RowDefinition>
+                    <RowDefinition Height="auto" MaxHeight="330"></RowDefinition>
+                </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <TextBlock x:Name="baseModelCurrentText" Grid.Row="0" TextTrimming="WordEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" FontSize="20" TextWrapping="Wrap" FontFamily="Segoe UI Semibold" />
+                </ScrollViewer>
+                <Expander ExpandDirection="Up" Grid.Row="1" FontFamily="Segoe UI Semibold" Header=" 代码详细情况" Margin="10">
+                    <TextBox FontFamily="Segoe UI" MaxHeight="250" x:Name="baseModelLogText" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalScrollBarVisibility="Visible" Margin="0, 10, 0, 10"/>
+                </Expander>
+            </Grid>
+            
+            <Grid Grid.Column="2" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Expander ExpandDirection="Left"  Grid.Row="0"  Margin="5">
+
+                    <Expander.Header>
+                        <TextBlock Text="Settings">
+                            <TextBlock.LayoutTransform>
+                                <RotateTransform Angle="90"/>
+                            </TextBlock.LayoutTransform>
+                        </TextBlock>
+                    </Expander.Header>
+
+                    <StackPanel x:Name="optionPanel">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition Height="auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Expander  Header="类型"  x:Name="radioGroup" Grid.Row="0" Margin="5">
+                                <StackPanel Orientation="Vertical">
+                                    <RadioButton x:Name="micRadioButton" IsChecked="{Binding ElementName=mainWindow, Path=UseMicrophone}" Margin="10, 10, 0, 0" Click="RadioButton_Click">使用麦克风语音</RadioButton>
+                                    <RadioButton x:Name="fileInputRadioButton" IsChecked="{Binding ElementName=mainWindow, Path=UseFileInput}" Margin="10, 10, 0, 0" Click="RadioButton_Click">识别wav文件</RadioButton>
+                                    <StackPanel Orientation="Vertical" Grid.Row="1"  Margin="10">
+                                        <Button x:Name="selectFileButton" Content="选择wav音频文件" Margin="0,5,0,5" Click="SelectFileButton_Click" Height="35" VerticalAlignment="Top"/>
+                                        <TextBox x:Name="fileNameTextBox" MaxWidth="210" Padding="2"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Text="whatstheweatherlike.wav"
+                         ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"  />
+
+                                    </StackPanel>
+                                </StackPanel>
+                            </Expander>
+                            
+                            <Expander Header="地区和语言" Grid.Row="3" Margin="5" >
+                                <StackPanel Orientation="Vertical">
+                                    <ComboBox  x:Name="regionComboBox"  Text="Select Region" Margin="10" AllowDrop="True" >
+                                        <ComboBoxItem Tag="westus" IsSelected="true">美国西部 - westus</ComboBoxItem>
+                                        <!--<ComboBoxItem Tag="westus2">美国西部2</ComboBoxItem>
+                                        <ComboBoxItem Tag="eastus">美国东部</ComboBoxItem>
+                                        <ComboBoxItem Tag="eastus2">美国东部2</ComboBoxItem>
+                                        <ComboBoxItem Tag="eastasia">东亚</ComboBoxItem>-->
+                                    </ComboBox>
+
+                                    <ComboBox  x:Name="languageComboBox" Text="Select Language"  Margin="10" AllowDrop="True">
+                                        <ComboBoxItem Tag="zh-CN" IsSelected="true">普通话</ComboBoxItem>
+                                        <ComboBoxItem Tag="en-US">English</ComboBoxItem>
+                                        <ComboBoxItem Tag="ja-JP">日本語</ComboBoxItem>
+                                        <ComboBoxItem Tag="es-ES">Español</ComboBoxItem>
+                                    </ComboBox>
+                                </StackPanel>
+                            </Expander>
+                            <Expander  Header="密钥设置"  Grid.Row="4" Grid.Column="0"  Margin="5">
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="Subscription Key:" />
+                                    <TextBox VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Padding="2" Text="{Binding ElementName=mainWindow, Path=SubscriptionKey, Mode=TwoWay}" ToolTip="{Binding Text, RelativeSource={RelativeSource Self}}"/>
+                                    <Button Margin="0,5,0,0" Padding="5" Height="35" VerticalAlignment="Top" Click="SaveKey_Click">Save Keys</Button>
+                                </StackPanel>
+                            </Expander>
+                        </Grid>
+                    </StackPanel>
+
+                </Expander>
+                <Grid VerticalAlignment="Bottom">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Button x:Name="startButton" Grid.Row="0" Content="开始录音/识别" Click="StartButton_Click" Margin="10" Padding="15" VerticalAlignment="Top"/>
+                    <Button x:Name="stopButton" Grid.Row="1" Content="结束录音" Click="StopButton_Click" Margin="10" Padding="15" VerticalAlignment="Bottom" Visibility="{Binding IsChecked, ElementName=micRadioButton ,Converter={StaticResource b2v}}"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
