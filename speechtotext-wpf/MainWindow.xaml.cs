@@ -293,7 +293,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
             {
                 this.WriteLine(log, e.Result.Text);
                 var result = msbot.TalkMessage(e.Result.Text).Result;
-                this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n" + e.Result.Text + "\n\n -- 机器人\n\n" + result);
+                this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n“" + e.Result.Text + "”\n\n -- 机器人\n\n“" + result + "“");
             }
             else
             {

@@ -16,7 +16,7 @@ namespace speechtotextwpf
 
         public async Task<string> TalkMessage(string message)
         {
-            return "“请通过接口来获取我的回复.”";
+            return "请通过接口来获取我的回复.";
         }
 
     }
