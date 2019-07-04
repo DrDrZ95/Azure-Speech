@@ -1,4 +1,4 @@
-namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
+namespace MicrosoftSpeech.WpfSpeechRecognitionSample
 {
     using System;
     using System.Globalization;
@@ -219,11 +219,11 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
 
             //创建事件
             EventHandler<SpeechRecognitionEventArgs> recognizingHandler = (sender, e) => RecognizingEventHandler(e);
-           
+
             //识别器添加事件
             recognizer.Recognizing += recognizingHandler;
 
-            
+
             EventHandler<SpeechRecognitionEventArgs> recognizedHandler = (sender, e) => RecognizedEventHandler(e);
 
             EventHandler<SpeechRecognitionCanceledEventArgs> canceledHandler = (sender, e) => CanceledEventHandler(e, source);
@@ -239,10 +239,11 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
             recognizer.SpeechStartDetected -= speechStartDetectedHandler;
             recognizer.SpeechEndDetected -= speechEndDetectedHandler;
 
-            //开始,等待,停止识别
-            await recognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+            //开始,等待,停止识别（单次识别）
+            //await recognizer.StartContinuousRecognitionAsync().ConfigureAwait(false);
+            await recognizer.RecognizeOnceAsync();
             await source.Task.ConfigureAwait(false);
-            await recognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
+            //await recognizer.StopContinuousRecognitionAsync().ConfigureAwait(false);
 
             this.EnableButtons();
 
@@ -256,7 +257,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
             recognizer.SpeechEndDetected -= speechEndDetectedHandler;
         }
 
-        #region 识别事件处理程序
+        #region 语音识别（事件处理程序）
 
         /// <summary>
         /// 中途检测
@@ -288,26 +289,12 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
             log = this.baseModelLogText;
             
             this.WriteLine(log);
-            this.WriteLine(log, $" 【--------------------- [识别到的话] ---------------------】 ");
-            if (!string.IsNullOrEmpty(e.Result.Text))
-            {
-                this.WriteLine(log, e.Result.Text);
-                var result = msbot.TalkMessage(e.Result.Text).Result;
-                this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n“" + e.Result.Text + "”\n\n -- 机器人\n\n“" + result + "“");
-            }
-            else
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    this.stopButton.IsEnabled = false;
-                    if (this.UseBaseModel)
-                    {
-                        stopBaseRecognitionTaskCompletionSource.TrySetResult(0);
-                    }
-
-                    EnableButtons();
-                });
-            }
+            this.WriteLine(log, $" 【------- [识别到的话] -------】 ");
+            
+            this.WriteLine(log, e.Result.Text);
+            var result = msbot.TalkMessage(e.Result.Text).Result;
+            this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n“" + e.Result.Text + "”\n\n -- 机器人\n\n“" + result + "“");
+            
 
             // 将结果返回为Json格式
             // string json = e.Result.Properties.GetProperty(PropertyId.SpeechServiceResponse_JsonResult);
@@ -341,8 +328,20 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         private void SessionStoppedEventHandler(SessionEventArgs e, TaskCompletionSource<int> source)
         {
             var log = this.baseModelLogText;
-            this.WriteLine(log, String.Format(CultureInfo.InvariantCulture, "--- 结束录音 ---"));
+            this.WriteLine(log, String.Format(CultureInfo.InvariantCulture, "\n--- 结束录音 ---"));
             source.TrySetResult(0);
+            
+            //单次执行后结束
+            Dispatcher.Invoke(() =>
+            {
+                this.stopButton.IsEnabled = false;
+                if (this.UseBaseModel)
+                {
+                    stopBaseRecognitionTaskCompletionSource.TrySetResult(0);
+                }
+
+                EnableButtons();
+            });
         }
 
         private void SpeechDetectedEventHandler(RecognitionEventArgs e, string eventType)
@@ -356,9 +355,8 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
 
         #region 辅助方法
         /// <summary>
-        /// Retrieves Key from File
+        /// 获取密钥
         /// </summary>
-        /// <param name="fileName">Name of file which contains key</param>
         private string GetValueFromIsolatedStorage(string fileName)
         {
             string value = null;
@@ -384,10 +382,10 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         }
 
         /// <summary>
-        /// Writes Key to File
+        /// 写入密钥
         /// </summary>
-        /// <param name="fileName">Name of file where key should be stored</param>
-        /// <param name="key">The key which should be stored</param>
+        /// <param name="fileName">存储密钥的文件名称</param>
+        /// <param name="key">密钥</param>
         private static void SaveKeyToIsolatedStorage(string fileName, string key)
         {
             if (fileName != null && key != null)
@@ -406,7 +404,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         }
 
         /// <summary>
-        /// Save Button Click triggers the three entered keys to be saved to their corresponding files.
+        /// 密钥保存按钮
         /// </summary>
         private void SaveKey_Click(object sender, RoutedEventArgs e)
         {
@@ -426,7 +424,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         }
 
         /// <summary>
-        /// Checks if keys are valid
+        /// 检查密钥
         /// </summary>
         private bool AreKeysValid()
         {
@@ -482,7 +480,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         }
 
         /// <summary>
-        /// Writes the line.
+        /// 代码详情显示
         /// </summary>
         private void WriteLine(TextBox log)
         {
@@ -509,7 +507,7 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
         }
 
         /// <summary>
-        /// Helper function for INotifyPropertyChanged interface
+        /// INotifyPropertyChanged接口的帮助函数
         /// </summary>
         /// <typeparam name="T">Property type</typeparam>
         /// <param name="caller">Property name</param>
@@ -552,12 +550,12 @@ namespace MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample
 
         #region 事件
         /// <summary>
-        /// Implement INotifyPropertyChanged interface
+        /// 实现INotifyPropertyChanged接口
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
-        /// Raises the System.Windows.Window.Closed event.
+        /// 提高了System.Windows.Window。关闭事件。
         /// </summary>
         /// <param name="e">An System.EventArgs that contains the event data.</param>
         protected override void OnClosed(EventArgs e)

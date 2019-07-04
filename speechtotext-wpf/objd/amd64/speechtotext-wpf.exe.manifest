@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="speechtotext-wpf.exe" size="28632">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="speechtotext-wpf.exe" size="28120">
       <assemblyIdentity name="speechtotext-wpf" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>09aXJzd4V9PoiUvcmTZ8Z+nKpK2tMipbu/zVvZK+hGE=</dsig:DigestValue>
+        <dsig:DigestValue>AI0Nctp3KlIDtgthhOneYU4aRHVlcc+c86LYrTwLdWM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

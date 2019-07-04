@@ -1,4 +1,4 @@
-﻿<Window x:Class="MicrosoftSpeechSDKSamples.WpfSpeechRecognitionSample.MainWindow"
+﻿<Window x:Class="MicrosoftSpeech.WpfSpeechRecognitionSample.MainWindow"
         x:Name="mainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
