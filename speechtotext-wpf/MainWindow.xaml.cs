@@ -344,6 +344,7 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
             });
         }
 
+        //语音检测事件处理程序
         private void SpeechDetectedEventHandler(RecognitionEventArgs e, string eventType)
         {
             var log = this.baseModelLogText;
