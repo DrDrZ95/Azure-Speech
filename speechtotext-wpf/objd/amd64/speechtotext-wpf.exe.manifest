@@ -42,6 +42,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AipSdk.dll" size="90624">
+      <assemblyIdentity name="AipSdk" version="3.6.13.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>6eauD0/xR97QITlw4iU7onl6L0rsIVjH/qiVpmTScL4=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.CognitiveServices.Speech.csharp.dll" size="107384">
       <assemblyIdentity name="Microsoft.CognitiveServices.Speech.csharp" version="1.6.0.28" publicKeyToken="D2E6DCCCB609E663" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -54,26 +66,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="504320">
-      <assemblyIdentity name="Newtonsoft.Json" version="6.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="653824">
+      <assemblyIdentity name="Newtonsoft.Json" version="10.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>eL7dn86HenGo2P+agTZi2CSDYeRnBcTvevxh1ED/Lus=</dsig:DigestValue>
+        <dsig:DigestValue>lz/XDOSOWsQzoQG0KHFoDFHi/roq7sPUAN6kEVrzong=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="speechtotext-wpf.exe" size="36824">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="speechtotext-wpf.exe" size="39384">
       <assemblyIdentity name="speechtotext-wpf" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>59ALwEq+0R5Rm4sqV2IuX4LrFtVdi6kZvPYvFIq+fEY=</dsig:DigestValue>
+        <dsig:DigestValue>1JAM2d6UbpugVBhcPBvpYHydeIks3B1oCEPrEC3fPbU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -113,13 +125,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="speechtotext-wpf.exe.config" size="1053">
+  <file name="speechtotext-wpf.exe.config" size="1412">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>YNG/eDIFS/p26fc079a8QkG/dlA/wmI3DfvLdyiw0nY=</dsig:DigestValue>
+      <dsig:DigestValue>Acq39U24UlQLbbh5Ugco6NbUqTXuApEQcJqCuAlMAkc=</dsig:DigestValue>
     </hash>
   </file>
   <file name="whatstheweatherlike.wav" size="65004">

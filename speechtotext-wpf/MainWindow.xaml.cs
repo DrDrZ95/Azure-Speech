@@ -16,6 +16,7 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
     using Microsoft.CognitiveServices.Speech;
     using Microsoft.CognitiveServices.Speech.Audio;
     using speechtotextwpf;
+    using System.Windows.Media;
 
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -284,6 +285,8 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
         /// </summary>
         private void RecognizedEventHandler(SpeechRecognitionEventArgs e)
         {
+            CortanaVoice cor = new CortanaVoice();
+            BaiduVoice baidu = new BaiduVoice();
             TextBox log;
 
             log = this.baseModelLogText;
@@ -294,11 +297,18 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
             this.WriteLine(log, e.Result.Text);
             var result = msbot.TalkMessage(e.Result.Text).Result;
             this.SetCurrentText(this.baseModelCurrentText, " -- 您\n\n“" + e.Result.Text + "”\n\n -- 机器人\n\n“" + result + "“");
-            
+
+            result = !string.IsNullOrEmpty(result) ? result : "我没听到您的话";
+
+            //语音回复
+            GC.Collect();
+            //cor.StartVoice(result);
+            //baidu.StartVoice(result);
+
+
 
             // 将结果返回为Json格式
             // string json = e.Result.Properties.GetProperty(PropertyId.SpeechServiceResponse_JsonResult);
-
         }
 
         /// <summary>
