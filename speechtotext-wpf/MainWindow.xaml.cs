@@ -145,7 +145,9 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
                 if (wavFileName.Length <= 0) return;
                 Task.Run(() => this.PlayAudioFile());
             }
-            
+
+            var config = SpeechConfig.FromSubscription(this.SubscriptionKey, this.Region);
+            config.SpeechRecognitionLanguage = this.RecognitionLanguage;
 
             // 多线程执行
             if (this.UseBaseModel)
@@ -303,7 +305,7 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
             //语音回复
             GC.Collect();
             //cor.StartVoice(result);
-            //baidu.StartVoice(result);
+            baidu.StartVoice(result);
 
 
 
@@ -320,6 +322,7 @@ namespace MicrosoftSpeech.WpfSpeechRecognitionSample
             var log = this.baseModelLogText;
             source.TrySetResult(0);
             this.WriteLine(log, "--- 识别结束 ---");
+            this.WriteLine(log, $"取消原因: {e.Reason.ToString()}. 详细原因: {e.ErrorDetails}.");
             this.WriteLine(log);
         }
 

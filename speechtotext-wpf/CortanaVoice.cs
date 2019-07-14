@@ -12,7 +12,24 @@ namespace speechtotextwpf
     {
         public void StartVoice(string msg)
         {
-            //请在这里实现微软语音
+            try
+            {
+                msg = !string.IsNullOrEmpty(msg) ? msg : "我没听到您说的话";
+                var thread = new Thread(() =>
+                {
+                    using (var speechSyn = new SpeechSynthesizer())
+                    {
+                        speechSyn.Speak(msg);
+                    }
+                });
+                thread.SetApartmentState(ApartmentState.STA);
+                thread.IsBackground = true;
+                thread.Start();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }
